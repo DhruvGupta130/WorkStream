@@ -431,14 +431,6 @@ $ docker compose up --build
 
 > ✨ If you find this helpful, please star the project on GitHub!
 
-
-# 🚀 WorkStream – Event-Driven Task Management Microservices
-
-> **Production-grade microservices backend** system built with Java 21, Spring Boot 3, Kafka, Redis, Docker, and
-> PostgreSQL.
-> WorkStream orchestrates a **collaborative task lifecycle** between Managers and Workers with **asynchronous
-> notifications**, **role-based access**, and a **resilient modular design** suited for cloud-native deployments.
-
 ## 🤝 Contribution Guidelines
 
 We welcome contributions! 🎉
