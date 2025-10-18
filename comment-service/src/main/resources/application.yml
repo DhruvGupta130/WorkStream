@@ -38,6 +38,9 @@ spring:
       resource-server:
         jwt:
           jwk-set-uri: ${JWKS_URI:http://localhost:8085/auth/.well-known/jwks.json}
+  docker:
+    compose:
+      file: ./comment-service/compose.yaml
 server:
   port: 8084
 management:

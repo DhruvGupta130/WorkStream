@@ -45,6 +45,9 @@ spring:
             commit: false
     listener:
       ack-mode: manual
+  docker:
+    compose:
+      file: ./compose.yaml
 server:
   port: 8083
 management:

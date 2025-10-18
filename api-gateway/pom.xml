@@ -5,8 +5,8 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.5.3</version>
-        <relativePath/> <!-- lookup parent from repository -->
+        <version>3.5.5</version>
+        <relativePath/> <!-- lookup parent from a repository -->
     </parent>
     <groupId>org.example</groupId>
     <artifactId>api-gateway</artifactId>
@@ -28,7 +28,7 @@
     </scm>
     <properties>
         <java.version>21</java.version>
-        <spring-boot-admin.version>3.5.0</spring-boot-admin.version>
+        <spring-boot-admin.version>3.5.5</spring-boot-admin.version>
         <spring-cloud.version>2025.0.0</spring-cloud.version>
     </properties>
     <dependencies>

@@ -1,14 +1,13 @@
-# Use OpenJDK image
-FROM openjdk:23-jdk-slim
-
-# Set working directory
+# --- Stage 1 : Build with Maven + JDK 21 ---
+FROM maven:3.9.9-eclipse-temurin-21 AS build
 WORKDIR /app
+COPY pom.xml .
+COPY src ./src
+RUN mvn clean package -DskipTests
 
-# Copy the built jar file
-COPY target/eureka-server-0.0.1-SNAPSHOT.jar /app/eureka-server.jar
-
-# Expose port
-EXPOSE 8761
-
-# Run the jar
-ENTRYPOINT ["java", "-jar", "/app/eureka-server.jar"]
+# --- Stage 2 : Run with JDK 21 ---
+FROM eclipse-temurin:21-jdk
+WORKDIR /app
+COPY --from=build /app/target/*.jar app.jar
+EXPOSE 8080
+ENTRYPOINT ["java","-jar","app.jar"]

@@ -1,5 +1,4 @@
 services:
-
   # PostgreSQL Instances
   postgres-auth:
     image: postgres:latest
@@ -10,7 +9,6 @@ services:
       POSTGRES_DB: task
     volumes:
       - pgdata-auth:/var/lib/postgresql/data
-    restart: unless-stopped
     networks: [ backend ]
 
   postgres-task:
@@ -22,7 +20,6 @@ services:
       POSTGRES_DB: task
     volumes:
       - pgdata-task:/var/lib/postgresql/data
-    restart: unless-stopped
     networks: [ backend ]
 
   postgres-comment:
@@ -34,7 +31,6 @@ services:
       POSTGRES_DB: task
     volumes:
       - pgdata-comment:/var/lib/postgresql/data
-    restart: unless-stopped
     networks: [ backend ]
 
   postgres-notification:
@@ -46,7 +42,6 @@ services:
       POSTGRES_DB: task
     volumes:
       - pgdata-notification:/var/lib/postgresql/data
-    restart: unless-stopped
     networks: [ backend ]
 
   # Kafka + Zookeeper
@@ -57,7 +52,6 @@ services:
       ZOOKEEPER_CLIENT_PORT: 2181
       ZOOKEEPER_TICK_TIME: 2000
     ports: [ "2181:2181" ]
-    restart: unless-stopped
     networks: [ backend ]
 
   kafka:
@@ -74,7 +68,6 @@ services:
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
       KAFKA_AUTO_CREATE_TOPICS_ENABLE: "true"
     ports: [ "9092:9092", "29092:29092" ]
-    restart: unless-stopped
     networks: [ backend ]
 
   #Redis Instance
@@ -93,7 +86,6 @@ services:
     build: ./eureka-server
     container_name: eureka-server
     ports: [ "8761:8761" ]
-    restart: unless-stopped
     networks: [ backend ]
 
   admin-server:
@@ -103,7 +95,6 @@ services:
     depends_on: [ eureka-server ]
     environment:
       EUREKA_URL: http://eureka-server:8761/eureka
-    restart: unless-stopped
     networks: [ backend ]
 
   api-gateway:
@@ -117,7 +108,6 @@ services:
       FRONTEND_URL: http://localhost:5173
       JWKS_URI: http://auth-service:8085/auth/.well-known/jwks.json
       EUREKA_URL: http://eureka-server:8761/eureka
-    restart: unless-stopped
     networks: [ backend ]
 
   auth-service:
@@ -134,7 +124,6 @@ services:
       EUREKA_URL: http://eureka-server:8761/eureka
       REDIS_HOST: redis
       REDIS_PORT: 6379
-    restart: unless-stopped
     networks: [ backend ]
 
   user-service:
@@ -147,7 +136,6 @@ services:
       USER_SERVICE_URL: http://user-service:8081
       JWKS_URI: http://auth-service:8085/auth/.well-known/jwks.json
       EUREKA_URL: http://eureka-server:8761/eureka
-    restart: unless-stopped
     networks: [ backend ]
 
   task-service:
@@ -166,7 +154,6 @@ services:
       SPRING_KAFKA_BOOTSTRAP_SERVERS: kafka:29092
       REDIS_HOST: redis
       REDIS_PORT: 6379
-    restart: unless-stopped
     networks: [ backend ]
 
   comment-service:
@@ -184,7 +171,6 @@ services:
       EUREKA_URL: http://eureka-server:8761/eureka
       REDIS_HOST: redis
       REDIS_PORT: 6379
-    restart: unless-stopped
     networks: [ backend ]
 
   notification-service:
@@ -201,7 +187,6 @@ services:
       JWKS_URI: http://auth-service:8085/auth/.well-known/jwks.json
       EUREKA_URL: http://eureka-server:8761/eureka
       SPRING_KAFKA_BOOTSTRAP_SERVERS: kafka:29092
-    restart: unless-stopped
     networks: [ backend ]
 
   react-app:
@@ -209,9 +194,8 @@ services:
     container_name: react-app
     environment:
       VITE_BACKEND_URL: http://localhost:8080
-    ports: [ "5174:5173" ]
+    ports: [ "5173:5173" ]
     depends_on: [ api-gateway ]
-    restart: unless-stopped
     networks: [ backend ]
 
 networks:

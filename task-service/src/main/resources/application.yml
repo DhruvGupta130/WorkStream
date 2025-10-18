@@ -47,6 +47,9 @@ spring:
       resource-server:
         jwt:
           jwk-set-uri: ${JWKS_URI:http://localhost:8085/auth/.well-known/jwks.json}
+  docker:
+    compose:
+      file: ./compose.yaml
   kafka:
     bootstrap-servers: ${SPRING_KAFKA_BOOTSTRAP_SERVERS:localhost:9092}
     producer:
